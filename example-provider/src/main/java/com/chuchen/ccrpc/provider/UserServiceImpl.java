@@ -1,7 +1,7 @@
-package com.chuchen.example.provider;
+package com.chuchen.ccrpc.provider;
 
-import com.chuchen.example.model.User;
-import com.chuchen.example.service.UserService;
+import com.chuchen.ccrpc.model.User;
+import com.chuchen.ccrpc.service.UserService;
 
 /**
  * @author chuchen
