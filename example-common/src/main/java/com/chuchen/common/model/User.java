@@ -1,4 +1,4 @@
-package com.chuchen.ccrpc.model;
+package com.chuchen.common.model;
 
 import java.io.Serializable;
 

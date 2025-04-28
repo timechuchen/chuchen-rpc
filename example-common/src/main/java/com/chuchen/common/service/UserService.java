@@ -1,6 +1,6 @@
-package com.chuchen.ccrpc.service;
+package com.chuchen.common.service;
 
-import com.chuchen.ccrpc.model.User;
+import com.chuchen.common.model.User;
 
 /**
  * @author chuchen

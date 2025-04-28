@@ -1,7 +1,8 @@
-package com.chuchen.ccrpc.consumer;
+package com.chuchen.example.consumer;
 
-import com.chuchen.ccrpc.model.User;
-import com.chuchen.ccrpc.service.UserService;
+import com.chuchen.common.model.User;
+import com.chuchen.ccrpc.proxy.ServiceProxyFactory;
+import com.chuchen.common.service.UserService;
 
 /**
  * @author chuchen
@@ -10,7 +11,11 @@ import com.chuchen.ccrpc.service.UserService;
  */
 public class EasyConsumerExample {
     public static void main(String[] args) {
-        UserService userService = null;
+        // 调用静态代理的方式
+//        UserServiceProxy userService = new UserServiceProxy();
+        // 动态代理的方式
+        UserService userService = ServiceProxyFactory.getProxy(UserService.class);
+
         User user = new User();
         user.setName("chuchen");
 

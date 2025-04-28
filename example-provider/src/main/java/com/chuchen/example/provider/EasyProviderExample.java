@@ -1,7 +1,9 @@
-package com.chuchen.ccrpc.provider;
+package com.chuchen.example.provider;
 
+import com.chuchen.ccrpc.registry.LocalRegistry;
 import com.chuchen.ccrpc.server.HttpServer;
 import com.chuchen.ccrpc.server.VertxHttpServer;
+import com.chuchen.common.service.UserService;
 
 /**
  * @author chuchen
@@ -10,6 +12,8 @@ import com.chuchen.ccrpc.server.VertxHttpServer;
  */
 public class EasyProviderExample {
     public static void main(String[] args) {
+        LocalRegistry.registry(UserService.class.getName(), UserServiceImpl.class);
+
         // 启动 web 服务器
         HttpServer httpServer = new VertxHttpServer();
 
