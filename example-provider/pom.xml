@@ -9,11 +9,17 @@
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
+<!--        <dependency>-->
+<!--            <groupId>com.chuchen</groupId>-->
+<!--            <artifactId>cc-rpc-easy</artifactId>-->
+<!--            <version>1.0-SNAPSHOT</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>com.chuchen</groupId>
-            <artifactId>cc-rpc-easy</artifactId>
+            <artifactId>cc-rpc-core</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+
         <dependency>
             <groupId>com.chuchen</groupId>
             <artifactId>example-common</artifactId>

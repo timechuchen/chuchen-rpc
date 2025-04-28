@@ -1,5 +1,6 @@
 package com.chuchen.example.provider;
 
+import com.chuchen.ccrpc.RpcApplication;
 import com.chuchen.ccrpc.registry.LocalRegistry;
 import com.chuchen.ccrpc.server.HttpServer;
 import com.chuchen.ccrpc.server.VertxHttpServer;
@@ -12,11 +13,14 @@ import com.chuchen.common.service.UserService;
  */
 public class EasyProviderExample {
     public static void main(String[] args) {
+        // RPC 框架初始化
+        RpcApplication.init();
+
         LocalRegistry.registry(UserService.class.getName(), UserServiceImpl.class);
 
         // 启动 web 服务器
         HttpServer httpServer = new VertxHttpServer();
 
-        httpServer.doStart(8080);
+        httpServer.doStart(RpcApplication.getRpcConfig().getServerPort());
     }
 }
