@@ -2,10 +2,11 @@ package com.chuchen.ccrpc.proxy;
 
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
+import com.chuchen.ccrpc.RpcApplication;
 import com.chuchen.ccrpc.model.RpcRequest;
 import com.chuchen.ccrpc.model.RpcResponse;
-import com.chuchen.ccrpc.serializer.JdkSerializer;
 import com.chuchen.ccrpc.serializer.Serializer;
+import com.chuchen.ccrpc.serializer.SerializerFactory;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -24,7 +25,7 @@ public class ServiceProxy implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         // 指定序列化器
-        Serializer serializer = new JdkSerializer();
+        final Serializer serializer = SerializerFactory.getInstance(RpcApplication.getRpcConfig().getSerializer());
 
         RpcRequest rpcRequest = RpcRequest.builder()
                 .serviceName(method.getDeclaringClass().getName())

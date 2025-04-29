@@ -1,10 +1,11 @@
 package com.chuchen.ccrpc.server;
 
+import com.chuchen.ccrpc.RpcApplication;
 import com.chuchen.ccrpc.model.RpcRequest;
 import com.chuchen.ccrpc.model.RpcResponse;
 import com.chuchen.ccrpc.registry.LocalRegistry;
-import com.chuchen.ccrpc.serializer.JdkSerializer;
 import com.chuchen.ccrpc.serializer.Serializer;
+import com.chuchen.ccrpc.serializer.SerializerFactory;
 import io.vertx.core.Handler;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpServerRequest;
@@ -35,7 +36,7 @@ public class HttpServerHandler implements Handler<HttpServerRequest> {
     @Override
     public void handle(HttpServerRequest request) {
         // 指定序列化器
-        final Serializer serializer = new JdkSerializer();
+        final Serializer serializer = SerializerFactory.getInstance(RpcApplication.getRpcConfig().getSerializer());
 
         // 记录日志
         System.out.println("Received request: " + request.method() + " " + request.uri());
@@ -43,7 +44,7 @@ public class HttpServerHandler implements Handler<HttpServerRequest> {
         // 异步处理 HTTP 请求
         request.bodyHandler(body -> {
             byte[] bytes = body.getBytes();
-            RpcRequest rcpRequest = null;
+            RpcRequest rcpRequest;
             try{
                 rcpRequest = serializer.Deserializer(bytes, RpcRequest.class);
             } catch (IOException e) {

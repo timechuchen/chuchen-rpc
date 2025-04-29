@@ -1,0 +1,4 @@
+jdk=com.chuchen.ccrpc.serializer.JdkSerializer
+hessian=com.chuchen.ccrpc.serializer.HessianSerializer
+json=com.chuchen.ccrpc.serializer.JsonSerializer
+kryo=com.chuchen.ccrpc.serializer.KryoSerializer
