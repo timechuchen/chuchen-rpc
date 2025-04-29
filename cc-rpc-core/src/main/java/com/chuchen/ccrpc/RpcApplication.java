@@ -1,8 +1,12 @@
 package com.chuchen.ccrpc;
 
+import com.chuchen.ccrpc.config.RegistryConfig;
 import com.chuchen.ccrpc.config.RpcConfig;
 import com.chuchen.ccrpc.constant.RpcConstant;
+import com.chuchen.ccrpc.registry.Registry;
+import com.chuchen.ccrpc.registry.RegistryFactory;
 import com.chuchen.ccrpc.utils.ConfigUtils;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author chuchen
@@ -12,6 +16,7 @@ import com.chuchen.ccrpc.utils.ConfigUtils;
  * <br>
  * 相当于 holder，存放了项目全局用到的变量。
  */
+@Slf4j
 public class RpcApplication {
 
     private static volatile RpcConfig rpcConfig;
@@ -22,6 +27,12 @@ public class RpcApplication {
      */
     public static void init(RpcConfig newRpcConfig) {
         rpcConfig = newRpcConfig;
+        log.info("rpc init, config: {}", rpcConfig);
+        // 注册中心初始化
+        RegistryConfig registryConfig = rpcConfig.getRegistryConfig();
+        Registry registry = RegistryFactory.getInstance(registryConfig.getRegistry());
+        registry.init(registryConfig);
+        log.info("registry init, config: {}", registryConfig);
     }
 
     /**

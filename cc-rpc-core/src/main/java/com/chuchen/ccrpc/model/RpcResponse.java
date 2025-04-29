@@ -1,5 +1,6 @@
 package com.chuchen.ccrpc.model;
 
+import com.chuchen.ccrpc.constant.RpcConstant;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,6 +27,11 @@ public class RpcResponse implements Serializable {
      * 响应数据类型（预留）
      */
     private Class<?> dataType;
+
+    /**
+     * 服务版本
+     */
+    private String serviceVersion = RpcConstant.DEFAULT_SERVICE_VERSION;
 
     /**
      * 响应信息

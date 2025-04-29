@@ -1,8 +1,6 @@
 package com.chuchen.example.consumer;
 
-import com.chuchen.ccrpc.config.RpcConfig;
 import com.chuchen.ccrpc.proxy.ServiceProxyFactory;
-import com.chuchen.ccrpc.utils.ConfigUtils;
 import com.chuchen.common.model.User;
 import com.chuchen.common.service.UserService;
 
