@@ -1,1 +1,2 @@
 etcd=com.chuchen.ccrpc.registry.EtcdRegistry
+zookeeper=com.chuchen.ccrpc.registry.ZooKeeperRegistry

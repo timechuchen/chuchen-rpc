@@ -4,7 +4,6 @@ import com.chuchen.ccrpc.config.RegistryConfig;
 import com.chuchen.ccrpc.model.ServiceMetaInfo;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /**
  * @author chuchen
@@ -40,5 +39,16 @@ public interface Registry {
     /**
      * 服务销毁
      */
-    void discover();
+    void destroy();
+
+    /**
+     * 心跳检测，服务端
+     */
+    void heartBeat();
+
+    /**
+     * 监听（消费端）
+     * @param serviceNodeKey 服务节点
+     */
+    void watch(String serviceNodeKey);
 }
