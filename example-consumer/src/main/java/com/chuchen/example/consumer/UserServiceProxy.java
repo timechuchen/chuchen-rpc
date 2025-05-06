@@ -33,14 +33,14 @@ public class UserServiceProxy {
                 .build();
 
         try{
-            byte[] bytes = serializer.Serializer(request);
+            byte[] bytes = serializer.serializer(request);
             byte[] result;
             try(HttpResponse httpResponse = HttpRequest.post("http://localhost:8080")
                     .body(bytes)
                     .execute()) {
                 result = httpResponse.bodyBytes();
             }
-            RpcResponse response = serializer.Deserializer(result, RpcResponse.class);
+            RpcResponse response = serializer.deserialize(result, RpcResponse.class);
             return (User) response.getData();
         } catch (IOException e) {
             e.printStackTrace();

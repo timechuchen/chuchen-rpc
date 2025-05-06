@@ -1,8 +1,6 @@
 package com.chuchen.ccrpc.proxy;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.http.HttpRequest;
-import cn.hutool.http.HttpResponse;
 import com.chuchen.ccrpc.RpcApplication;
 import com.chuchen.ccrpc.config.RpcConfig;
 import com.chuchen.ccrpc.constant.RpcConstant;
@@ -13,6 +11,7 @@ import com.chuchen.ccrpc.registry.Registry;
 import com.chuchen.ccrpc.registry.RegistryFactory;
 import com.chuchen.ccrpc.serializer.Serializer;
 import com.chuchen.ccrpc.serializer.SerializerFactory;
+import com.chuchen.ccrpc.server.tcp.VertxTcpClient;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -30,9 +29,10 @@ import java.util.List;
 public class ServiceProxy implements InvocationHandler {
 
     @Override
-    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        // 指定序列化器
+    public Object invoke(Object proxy, Method method, Object[] args) {
         final Serializer serializer = SerializerFactory.getInstance(RpcApplication.getRpcConfig().getSerializer());
+
+        // 构造请求
         String serviceName = method.getDeclaringClass().getName();
         RpcRequest rpcRequest = RpcRequest.builder()
                 .serviceName(serviceName)
@@ -42,8 +42,6 @@ public class ServiceProxy implements InvocationHandler {
                 .build();
 
         try {
-            byte[] bytes = serializer.Serializer(rpcRequest);
-
             // 从注册中心获取服务提供者的请求地址
             RpcConfig rpcConfig = RpcApplication.getRpcConfig();
             Registry registry = RegistryFactory.getInstance(rpcConfig.getRegistryConfig().getRegistry());
@@ -57,17 +55,19 @@ public class ServiceProxy implements InvocationHandler {
             // TODO 这里暂时先获取第一个服务就行，之后需要使用负载均衡算法来选择服务提供者
             ServiceMetaInfo selectServiceMetaInfo = serviceMetaInfoList.get(0);
 
-            //发送请求
-            try (HttpResponse httpResponse = HttpRequest.post(selectServiceMetaInfo.getServiceAddress())
-                    .body(bytes)
-                    .execute()) {
-                byte[] result = httpResponse.bodyBytes();
-                RpcResponse response = serializer.Deserializer(result, RpcResponse.class);
-                return response.getData();
-            }
+//            // Http 协议 发送请求
+//            try (HttpResponse httpResponse = HttpRequest.post(selectServiceMetaInfo.getServiceAddress())
+//                    .body(bytes)
+//                    .execute()) {
+//                byte[] result = httpResponse.bodyBytes();
+//                RpcResponse response = serializer.deserialize(result, RpcResponse.class);
+//                return response.getData();
+//            }
+            // TCP 协议 发送请求
+            RpcResponse rpcResponse = VertxTcpClient.doRequest(rpcRequest, selectServiceMetaInfo);
+            return rpcResponse.getData();
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("调用服务失败");
         }
-        return null;
     }
 }

@@ -16,7 +16,7 @@ import java.io.IOException;
 public class HessianSerializer implements Serializer{
 
     @Override
-    public <T> byte[] Serializer(T object) throws IOException {
+    public <T> byte[] serializer(T object) throws IOException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         HessianOutput ho = new HessianOutput(byteArrayOutputStream);
         ho.writeObject(object);
@@ -24,7 +24,7 @@ public class HessianSerializer implements Serializer{
     }
 
     @Override
-    public <T> T Deserializer(byte[] bytes, Class<T> clazz) throws IOException {
+    public <T> T deserialize(byte[] bytes, Class<T> clazz) throws IOException {
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
         HessianInput hi = new HessianInput(byteArrayInputStream);
         return (T) hi.readObject(clazz);

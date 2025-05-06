@@ -16,17 +16,15 @@ public class ConsumerExample {
 //        System.out.println(rpcConfig);
 
         // 获取动态代理类
-        for(int i = 0; i < 3; i++) {
-            UserService userService = ServiceProxyFactory.getProxy(UserService.class);
-            User user = new User();
-            user.setName("chuchen");
-            // 调用远程服务
-            User newUser = userService.getUser(user);
-            if(newUser != null){
-                System.out.println(newUser.getName());
-            }else {
-                System.out.println("user == null");
-            }
+        UserService userService = ServiceProxyFactory.getProxy(UserService.class);
+        User user = new User();
+        user.setName("chuchen");
+        // 调用远程服务
+        User newUser = userService.getUser(user);
+        if(newUser != null){
+            System.out.println(newUser.getName());
+        }else {
+            System.out.println("user == null");
         }
 //        long number = userService.getNumber();
 //        System.out.println(number);

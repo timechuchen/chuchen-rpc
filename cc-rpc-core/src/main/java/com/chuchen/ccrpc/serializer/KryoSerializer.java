@@ -26,7 +26,7 @@ public class KryoSerializer implements Serializer{
     });
 
     @Override
-    public <T> byte[] Serializer(T object) {
+    public <T> byte[] serializer(T object) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         Output output = new Output(outputStream);
         KRYO_THREAD_LOCAL.get().writeObject(output, object);
@@ -35,7 +35,7 @@ public class KryoSerializer implements Serializer{
     }
 
     @Override
-    public <T> T Deserializer(byte[] bytes, Class<T> clazz) {
+    public <T> T deserialize(byte[] bytes, Class<T> clazz) {
         ByteArrayInputStream inputStream = new ByteArrayInputStream(bytes);
         Input input = new Input(inputStream);
         T t = KRYO_THREAD_LOCAL.get().readObject(input, clazz);

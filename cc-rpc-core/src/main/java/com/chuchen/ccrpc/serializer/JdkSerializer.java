@@ -10,7 +10,7 @@ import java.io.*;
 public class JdkSerializer implements Serializer{
 
     @Override
-    public <T> byte[] Serializer(T object) throws IOException {
+    public <T> byte[] serializer(T object) throws IOException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
         objectOutputStream.writeObject(object);
@@ -19,7 +19,7 @@ public class JdkSerializer implements Serializer{
     }
 
     @Override
-    public <T> T Deserializer(byte[] bytes, Class<T> clazz) throws IOException {
+    public <T> T deserialize(byte[] bytes, Class<T> clazz) throws IOException {
         ByteArrayInputStream inputStream = new ByteArrayInputStream(bytes);
         ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
         try {

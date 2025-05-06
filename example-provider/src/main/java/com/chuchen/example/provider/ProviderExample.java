@@ -9,6 +9,7 @@ import com.chuchen.ccrpc.registry.Registry;
 import com.chuchen.ccrpc.registry.RegistryFactory;
 import com.chuchen.ccrpc.server.HttpServer;
 import com.chuchen.ccrpc.server.VertxHttpServer;
+import com.chuchen.ccrpc.server.tcp.VertxTcpServer;
 import com.chuchen.common.service.UserService;
 
 /**
@@ -40,8 +41,9 @@ public class ProviderExample {
         }
 
         // 启动 web 服务器
-        HttpServer httpServer = new VertxHttpServer();
+//        HttpServer vertxHttpServer = new VertxHttpServer();
+        HttpServer vertxTcpServer = new VertxTcpServer();
 
-        httpServer.doStart(RpcApplication.getRpcConfig().getServerPort());
+        vertxTcpServer.doStart(RpcApplication.getRpcConfig().getServerPort());
     }
 }
