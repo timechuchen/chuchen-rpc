@@ -1,0 +1,3 @@
+roundRobin=com.chuchen.ccrpc.loadbalancer.RoundRobinLoadBalancer
+random=com.chuchen.ccrpc.loadbalancer.RandomLoadBalancer
+consistentHash=com.chuchen.ccrpc.loadbalancer.ConsistentHashLoadBalancer
