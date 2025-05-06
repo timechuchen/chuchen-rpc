@@ -16,7 +16,7 @@ import java.io.IOException;
 public class HessianSerializer implements Serializer{
 
     @Override
-    public <T> byte[] serializer(T object) throws IOException {
+    public <T> byte[] serialize(T object) throws IOException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         HessianOutput ho = new HessianOutput(byteArrayOutputStream);
         ho.writeObject(object);

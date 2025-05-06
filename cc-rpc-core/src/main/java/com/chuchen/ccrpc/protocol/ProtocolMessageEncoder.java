@@ -38,7 +38,7 @@ public class ProtocolMessageEncoder {
             throw new RuntimeException("序列化器不存在");
         }
         Serializer serializer = SerializerFactory.getInstance(serializerEnum.getValue());
-        byte[] bytes = serializer.serializer(protocolMessage.getBody());
+        byte[] bytes = serializer.serialize(protocolMessage.getBody());
         // 写入 body 的长度和数据
         buffer.appendInt(bytes.length);
         buffer.appendBytes(bytes);

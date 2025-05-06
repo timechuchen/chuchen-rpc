@@ -33,7 +33,7 @@ public class UserServiceProxy {
                 .build();
 
         try{
-            byte[] bytes = serializer.serializer(request);
+            byte[] bytes = serializer.serialize(request);
             byte[] result;
             try(HttpResponse httpResponse = HttpRequest.post("http://localhost:8080")
                     .body(bytes)

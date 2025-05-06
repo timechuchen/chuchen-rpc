@@ -6,6 +6,8 @@ import cn.hutool.http.HttpResponse;
 import com.chuchen.ccrpc.RpcApplication;
 import com.chuchen.ccrpc.config.RpcConfig;
 import com.chuchen.ccrpc.constant.RpcConstant;
+import com.chuchen.ccrpc.loadbalancer.LoadBalancer;
+import com.chuchen.ccrpc.loadbalancer.LoadBalancerFactory;
 import com.chuchen.ccrpc.model.RpcRequest;
 import com.chuchen.ccrpc.model.RpcResponse;
 import com.chuchen.ccrpc.model.ServiceMetaInfo;
@@ -18,7 +20,9 @@ import com.chuchen.ccrpc.server.tcp.VertxTcpClient;
 import java.io.IOException;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author chuchen
@@ -55,8 +59,12 @@ public class ServiceProxy implements InvocationHandler {
             if(CollUtil.isEmpty(serviceMetaInfoList)) {
                 throw new RuntimeException("暂无服务提供者");
             }
-            // TODO 这里暂时先获取第一个服务就行，之后需要使用负载均衡算法来选择服务提供者
-            ServiceMetaInfo selectServiceMetaInfo = serviceMetaInfoList.get(0);
+            // 负载均衡算法来选择服务提供者
+            LoadBalancer loadBalancer = LoadBalancerFactory.getLoadBalancer(rpcConfig.getLoadBalancer());
+            // 将调用参数作为选取负载均衡的参数
+            Map<String, Object> requestParams = new HashMap<>();
+            requestParams.put("methodName", rpcRequest.getMethodName());
+            ServiceMetaInfo selectServiceMetaInfo = loadBalancer.select(requestParams, serviceMetaInfoList);
 
 //            // Http 协议 发送请求
 //            try (HttpResponse httpResponse = HttpRequest.post(selectServiceMetaInfo.getServiceAddress())

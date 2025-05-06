@@ -17,7 +17,7 @@ public class JsonSerializer implements Serializer{
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     @Override
-    public <T> byte[] serializer(T object) throws IOException {
+    public <T> byte[] serialize(T object) throws IOException {
         return OBJECT_MAPPER.writeValueAsBytes(object);
     }
 

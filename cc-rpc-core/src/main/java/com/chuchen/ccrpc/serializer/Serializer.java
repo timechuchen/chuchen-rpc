@@ -16,7 +16,7 @@ public interface Serializer {
      * @param <T> 类型
      * @throws IOException
      */
-    <T> byte[] serializer(T object) throws IOException;
+    <T> byte[] serialize(T object) throws IOException;
 
     /**
      * 反序列化: 这方法的最终目的其实就是将字节数组转化为Java对象
