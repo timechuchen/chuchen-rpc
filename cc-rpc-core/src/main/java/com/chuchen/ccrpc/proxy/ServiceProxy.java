@@ -1,6 +1,8 @@
 package com.chuchen.ccrpc.proxy;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.http.HttpRequest;
+import cn.hutool.http.HttpResponse;
 import com.chuchen.ccrpc.RpcApplication;
 import com.chuchen.ccrpc.config.RpcConfig;
 import com.chuchen.ccrpc.constant.RpcConstant;
@@ -13,6 +15,7 @@ import com.chuchen.ccrpc.serializer.Serializer;
 import com.chuchen.ccrpc.serializer.SerializerFactory;
 import com.chuchen.ccrpc.server.tcp.VertxTcpClient;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -68,6 +71,27 @@ public class ServiceProxy implements InvocationHandler {
             return rpcResponse.getData();
         } catch (Exception e) {
             throw new RuntimeException("调用服务失败");
+        }
+    }
+
+    /**
+     * 发送 HTTP 请求
+     *
+     * @param selectedServiceMetaInfo
+     * @param bodyBytes
+     * @return
+     * @throws IOException
+     */
+    private static RpcResponse doHttpRequest(ServiceMetaInfo selectedServiceMetaInfo, byte[] bodyBytes) throws IOException {
+        final Serializer serializer = SerializerFactory.getInstance(RpcApplication.getRpcConfig().getSerializer());
+        // 发送 HTTP 请求
+        try (HttpResponse httpResponse = HttpRequest.post(selectedServiceMetaInfo.getServiceAddress())
+                .body(bodyBytes)
+                .execute()) {
+            byte[] result = httpResponse.bodyBytes();
+            // 反序列化
+            RpcResponse rpcResponse = serializer.deserialize(result, RpcResponse.class);
+            return rpcResponse;
         }
     }
 }

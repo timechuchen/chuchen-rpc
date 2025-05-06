@@ -42,7 +42,7 @@ public class VertxTcpServer implements HttpServer {
                         size = buffer.getInt(4);
                         parser.fixedSizeMode(size);
                         // 写入头信息到结果
-                        resultBuffer.appendBuffer(buffer);
+//                        resultBuffer.appendBuffer(buffer);
                     } else {
                         // 写入体信息到结果
                         resultBuffer.appendBuffer(buffer);

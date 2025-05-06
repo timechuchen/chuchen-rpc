@@ -21,6 +21,7 @@ public class ConsumerExample {
         user.setName("chuchen");
         // 调用远程服务
         User newUser = userService.getUser(user);
+        System.out.println(newUser);
         if(newUser != null){
             System.out.println(newUser.getName());
         }else {
