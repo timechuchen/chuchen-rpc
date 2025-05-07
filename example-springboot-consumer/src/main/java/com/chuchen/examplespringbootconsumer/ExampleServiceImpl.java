@@ -1,6 +1,7 @@
 package com.chuchen.examplespringbootconsumer;
 
 import com.chuchen.ccrpc.springboot.starter.annotation.RpcReference;
+import com.chuchen.ccrpc.springboot.starter.annotation.RpcService;
 import com.chuchen.common.model.User;
 import com.chuchen.common.service.UserService;
 import org.springframework.stereotype.Service;
