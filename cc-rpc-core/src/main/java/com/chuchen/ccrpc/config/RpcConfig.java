@@ -1,6 +1,7 @@
 package com.chuchen.ccrpc.config;
 
 import com.chuchen.ccrpc.fault.retry.RetryStrategyKeys;
+import com.chuchen.ccrpc.fault.tolerant.TolerantStrategyKeys;
 import com.chuchen.ccrpc.loadbalancer.LoadBalancerKeys;
 import com.chuchen.ccrpc.serializer.SerializerKeys;
 import lombok.Data;
@@ -52,6 +53,11 @@ public class RpcConfig {
      * 重试策略
      */
     private String retryStrategy = RetryStrategyKeys.NO;
+
+    /**
+     * 容错策略
+     */
+    private String tolerantStrategy = TolerantStrategyKeys.FAIL_FAST;
 
     /**
      * 注册中心配置

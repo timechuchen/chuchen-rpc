@@ -1,0 +1,4 @@
+failBack=com.chuchen.ccrpc.fault.tolerant.FailBackTolerantStrategy
+failFast=com.chuchen.ccrpc.fault.tolerant.FailFastTolerantStrategy
+failOver=com.chuchen.ccrpc.fault.tolerant.FailOverTolerantStrategy
+failSafe=com.chuchen.ccrpc.fault.tolerant.FailSafeTolerantStrategy

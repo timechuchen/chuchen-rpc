@@ -8,6 +8,8 @@ import com.chuchen.ccrpc.config.RpcConfig;
 import com.chuchen.ccrpc.constant.RpcConstant;
 import com.chuchen.ccrpc.fault.retry.RetryStrategy;
 import com.chuchen.ccrpc.fault.retry.RetryStrategyFactory;
+import com.chuchen.ccrpc.fault.tolerant.TolerantStrategy;
+import com.chuchen.ccrpc.fault.tolerant.TolerantStrategyFactory;
 import com.chuchen.ccrpc.loadbalancer.LoadBalancer;
 import com.chuchen.ccrpc.loadbalancer.LoadBalancerFactory;
 import com.chuchen.ccrpc.model.RpcRequest;
@@ -77,8 +79,16 @@ public class ServiceProxy implements InvocationHandler {
 //                return response.getData();
 //            }
             // 使用重试机制
-            RetryStrategy retryStrategy = RetryStrategyFactory.getInstance(rpcConfig.getRetryStrategy());
-            RpcResponse rpcResponse = retryStrategy.doRetry(() -> VertxTcpClient.doRequest(rpcRequest, selectServiceMetaInfo));
+            RpcResponse rpcResponse;
+
+            try {
+                RetryStrategy retryStrategy = RetryStrategyFactory.getInstance(rpcConfig.getRetryStrategy());
+                rpcResponse = retryStrategy.doRetry(() -> VertxTcpClient.doRequest(rpcRequest, selectServiceMetaInfo));
+            }catch (Exception e) {
+                // 容错机制
+                TolerantStrategy tolerantStrategy = TolerantStrategyFactory.getInstance(rpcConfig.getTolerantStrategy());
+                rpcResponse = tolerantStrategy.doTolerant(null, e);
+            }
             // TCP 协议 发送请求
             return rpcResponse.getData();
         } catch (Exception e) {
