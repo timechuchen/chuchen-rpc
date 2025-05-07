@@ -85,10 +85,10 @@ public class VertxTcpClient {
         return rpcResponse;
     }
 
-    public void start() {
+    public void start() throws ExecutionException, InterruptedException {
         // 创建 Vert.x 实例
         Vertx vertx = Vertx.vertx();
-
+        CompletableFuture<RpcResponse> responseFuture = new CompletableFuture<>();
         vertx.createNetClient().connect(8888, "localhost", result -> {
             if (result.succeeded()) {
                 System.out.println("Connected to TCP server");
@@ -103,16 +103,28 @@ public class VertxTcpClient {
                     socket.write(buffer);
                 }
                 // 接收响应
-                socket.handler(buffer -> {
-                    System.out.println("Received response from server: " + buffer.toString());
-                });
+                TcpBufferHandlerWrapper bufferHandlerWrapper = new TcpBufferHandlerWrapper(
+                        buffer -> {
+                            try {
+                                ProtocolMessage<RpcResponse> rpcResponseProtocolMessage =
+                                        (ProtocolMessage<RpcResponse>) ProtocolMessageDecoder.decode(buffer);
+                                System.out.println(rpcResponseProtocolMessage.getBody());
+                                responseFuture.complete(rpcResponseProtocolMessage.getBody());
+                            } catch (IOException e) {
+                                throw new RuntimeException("协议消息解码错误");
+                            }
+                        }
+                );
+                socket.handler(bufferHandlerWrapper);
             } else {
                 System.err.println("Failed to connect to TCP server");
             }
         });
+        RpcResponse rpcResponse = responseFuture.get();
+        System.out.println(rpcResponse);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
         new VertxTcpClient().start();
     }
 }

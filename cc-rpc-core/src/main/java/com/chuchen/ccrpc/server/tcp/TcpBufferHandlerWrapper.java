@@ -40,7 +40,7 @@ public class TcpBufferHandlerWrapper implements Handler<Buffer> {
                     size = buffer.getInt(13);
                     parser.fixedSizeMode(size);
                     // 写入头信息到结果
-//                    resultBuffer.appendBuffer(buffer);
+                    resultBuffer.appendBuffer(buffer);
                 } else {
                     // 写入体信息到结果
                     resultBuffer.appendBuffer(buffer);
