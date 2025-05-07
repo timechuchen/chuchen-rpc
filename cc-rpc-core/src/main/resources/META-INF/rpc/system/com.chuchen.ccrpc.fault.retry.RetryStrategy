@@ -1,0 +1,2 @@
+no=com.chuchen.ccrpc.fault.retry.NoRetryStrategy
+fixedInterval=com.chuchen.ccrpc.fault.retry.FixedIntervalRetryStrategy

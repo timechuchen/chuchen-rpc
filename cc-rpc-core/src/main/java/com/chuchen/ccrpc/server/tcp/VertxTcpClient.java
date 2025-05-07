@@ -41,6 +41,7 @@ public class VertxTcpClient {
                 result -> {
                     if (!result.succeeded()) {
                         System.err.println("Failed to connect to TCP server");
+                        responseFuture.completeExceptionally(new RuntimeException("连接失败"));
                         return;
                     }
                     NetSocket socket = result.result();

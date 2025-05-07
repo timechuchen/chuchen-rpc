@@ -6,6 +6,8 @@ import cn.hutool.http.HttpResponse;
 import com.chuchen.ccrpc.RpcApplication;
 import com.chuchen.ccrpc.config.RpcConfig;
 import com.chuchen.ccrpc.constant.RpcConstant;
+import com.chuchen.ccrpc.fault.retry.RetryStrategy;
+import com.chuchen.ccrpc.fault.retry.RetryStrategyFactory;
 import com.chuchen.ccrpc.loadbalancer.LoadBalancer;
 import com.chuchen.ccrpc.loadbalancer.LoadBalancerFactory;
 import com.chuchen.ccrpc.model.RpcRequest;
@@ -74,8 +76,10 @@ public class ServiceProxy implements InvocationHandler {
 //                RpcResponse response = serializer.deserialize(result, RpcResponse.class);
 //                return response.getData();
 //            }
+            // 使用重试机制
+            RetryStrategy retryStrategy = RetryStrategyFactory.getInstance(rpcConfig.getRetryStrategy());
+            RpcResponse rpcResponse = retryStrategy.doRetry(() -> VertxTcpClient.doRequest(rpcRequest, selectServiceMetaInfo));
             // TCP 协议 发送请求
-            RpcResponse rpcResponse = VertxTcpClient.doRequest(rpcRequest, selectServiceMetaInfo);
             return rpcResponse.getData();
         } catch (Exception e) {
             throw new RuntimeException("调用服务失败");

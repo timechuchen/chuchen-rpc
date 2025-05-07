@@ -1,5 +1,6 @@
 package com.chuchen.ccrpc.config;
 
+import com.chuchen.ccrpc.fault.retry.RetryStrategyKeys;
 import com.chuchen.ccrpc.loadbalancer.LoadBalancerKeys;
 import com.chuchen.ccrpc.serializer.SerializerKeys;
 import lombok.Data;
@@ -46,6 +47,11 @@ public class RpcConfig {
      * 负载均衡器
      */
     private String loadBalancer = LoadBalancerKeys.ROUND_ROBIN;
+
+    /**
+     * 重试策略
+     */
+    private String retryStrategy = RetryStrategyKeys.NO;
 
     /**
      * 注册中心配置
