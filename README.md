@@ -1,5 +1,5 @@
-<h1 style="width: 20%; margin: auto; font-weight: 700; border: 0">chuchen-rpc</h1>
-<h2 style="width: 20%; margin: auto; font-weight: 700; border: 0">初晨 RPC 框架</h2>
+<h1 align="center" style="width: 20%; margin: auto; font-weight: 700; border: 0">chuchen-rpc</h1>
+<h2 align="center" style="width: 20%; margin: auto; font-weight: 700; border: 0">初晨 RPC 框架</h2>
 `注册中心`  `接口 mock`  `序列化器`  `SPI` `自定义协议`  `负载均衡` `容错重试机制` `注解驱动` 
 
 ------
