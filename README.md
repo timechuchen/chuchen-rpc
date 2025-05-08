@@ -14,7 +14,7 @@
 
 - 网络服务器：[Vert.x](https://vertx.io/) 。
 - 序列化器：<u>JDK 序列化</u>、<u>JSON 序列化</u>、<u>Kryo 序列化</u>、<u>Hessian 序列化</u>。
-- 服务注册与发现：实现了基于 ==Etcd== 和 ==ZooKeeper== 实现的服务注册与发现功能以及心跳机制等。
+- 服务注册与发现：实现了基于 `Etcd` 和 `ZooKeeper` 实现的服务注册与发现功能以及心跳机制等。
 - 自定义协议：
   - 通过构建自己的协议消息结构以及使用 Vert.x 的 TCP 服务实现自己的传输协议。
   - 使用 Vert.x 的 RecordParser 来解决粘包和半包问题。
