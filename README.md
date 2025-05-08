@@ -1,5 +1,5 @@
-<h1 align="center" style="width: 20%; margin: auto; color: aliceblue; font-weight: 700;">chuchen-rpc</h1>
-<h2 align="center" style="width: 20%; margin: auto; color: aliceblue; font-weight: 700;">初晨 RPC 框架</h2>
+<h1 align="center" style="width: 20%; margin: auto; font-weight: 700; border: 0">chuchen-rpc</h1>
+<h2 align="center" style="width: 20%; margin: auto; font-weight: 700; border: 0">初晨 RPC 框架</h2>
 `注册中心`  `接口 mock`  `序列化器`  `SPI` `自定义协议`  `负载均衡` `容错重试机制` `注解驱动` 
 
 ------
@@ -23,7 +23,7 @@
 - 注解驱动：参考 Dubbo 的设计，最小化原则只开发了三个注解以及实现：
   - `@EnableRpc`  用于全局标识项目需要引入 RPC 框架、执行初始化方法。
   -  `@RpcService` 服务提供者注解，在需要注册和提供服务的类上使用。
-  -  `RpcReference` 服务消费者注解，在需要服务代理对象的属性上使用。
+  -  `@RpcReference` 服务消费者注解，在需要服务代理对象的属性上使用。
 
 ## 模块介绍
 
