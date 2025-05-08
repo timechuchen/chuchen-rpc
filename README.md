@@ -1,5 +1,5 @@
-<h1 align="center" style="width: 20%; margin: auto; font-weight: 700; border: 0">chuchen-rpc</h1>
-<h2 align="center" style="width: 20%; margin: auto; font-weight: 700; border: 0">初晨 RPC 框架</h2>
+<h1 style="width: 20%; margin: auto; font-weight: 700; border: 0">chuchen-rpc</h1>
+<h2 style="width: 20%; margin: auto; font-weight: 700; border: 0">初晨 RPC 框架</h2>
 `注册中心`  `接口 mock`  `序列化器`  `SPI` `自定义协议`  `负载均衡` `容错重试机制` `注解驱动` 
 
 ------
@@ -69,7 +69,7 @@ docker run -d --name Etcd-server \
 不论是使用启动类模块测试还是使用使用 SpringBoot 框架的注解驱动模块都需要在服务提供者和服务消费者的配置文件中选择配置以下配置信息（默认是如下信息，可以选择需要更改的进行配置）：
 
 ```properties
-rpc.name=ccrpc 
+rpc.name=ccrpc
 rpc.version=2.0
 rpc.serverPort=8080
 rpc.mock=false
