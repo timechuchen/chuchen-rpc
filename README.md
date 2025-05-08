@@ -1,7 +1,6 @@
 <h1 align="center" style="width: 20%; margin: auto; font-weight: 700; border: 0">chuchen-rpc</h1>
 <h2 align="center" style="width: 20%; margin: auto; font-weight: 700; border: 0">初晨 RPC 框架</h2>
 
-------
 `注册中心` `接口 mock` `序列化器` `自定义协议` `负载均衡` `容错重试机制` `注解驱动`
 > 借鉴知名的 RPC 框架（ Dubbo 等）进行自己设计实现的**轮子项目** -RPC 框架。总体上肯定不如市面上成熟稳定的 RPC 框架强大，但是本项目对于一个成熟的 RPC 框架所需要具备功能都有，而且有多种实现方法还预留了很多拓展空间，可逐步完善和学习。
 
