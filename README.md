@@ -27,7 +27,7 @@
 
 ## 模块介绍
 
-![image-20250508105334874](/Users/chuchen/study/学习项目/chuchen-rpc/assets/image-20250508105334874.png)
+![image-20250508105334874](./assets/image-20250508105334874.png)
 
 - cc-rpc-core：框架所有的核心代码实现
 - cc-rpc-easy：一开始的简易版的实现，主要是通过 HTTP 协议以及动态代理等先实现可以服务间的调用，跑通流程。
@@ -76,7 +76,6 @@ rpc.mock=false
 rpc.serializer=json
 rpc.registryConfig.registry=etcd
 rpc.registryConfig.address=http://localhost:2379
-rpc.serializer=jdk
 rpc.serverHost=localhost
 ```
 
@@ -86,20 +85,20 @@ rpc.serverHost=localhost
 
 先启动 `example-provider` 模块的 `ProviderExample`  类来启动一个提供 UserService 的服务提供者的服务：
 
-![image-20250508113809440](/Users/chuchen/study/学习项目/chuchen-rpc/assets/image-20250508113809440.png)
+![image-20250508113809440](./assets/image-20250508113809440.png)
 
 然后在启动` example-consumer` 模块的 `ConsumerExample` 类来进行调用测试：
 
-![image-20250508114024675](/Users/chuchen/study/学习项目/chuchen-rpc/assets/image-20250508114024675.png)
+![image-20250508114024675](./assets/image-20250508114024675.png)
 
 - SpringBoot 注解驱动测试：
 
 先启动 `example-springboot-provider` 的 SpringBoot 启动一个使用注解注册到服务中心的服务提供者案例项目：
 
-![image-20250508114400153](/Users/chuchen/study/学习项目/chuchen-rpc/assets/image-20250508114400153.png)
+![image-20250508114400153](./assets/image-20250508114400153.png)
 
 然后启动  example-springboot-consumer 的SpringBoot项目的ExampleServiceImplTest 测试类进行测试
 
-![image-20250508114559496](/Users/chuchen/study/学习项目/chuchen-rpc/assets/image-20250508114559496.png)
+![image-20250508114559496](./assets/image-20250508114559496.png)
 
 ## 拓展优化
